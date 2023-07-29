@@ -21,6 +21,10 @@ const accountSchema = new Schema(
       type: Number,
       required: true,
     },
+    cloture: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

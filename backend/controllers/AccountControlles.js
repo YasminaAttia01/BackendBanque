@@ -74,5 +74,63 @@ const AccountController = {
       });
     }
   },
+  // Fonction pour créditer un montant sur le compte
+  crediter: async (req, res) => {
+    try {
+      const account = await Account.findById(req.params.id);
+      if (!account) {
+        return res.status(404).json({ error: "Account not found." });
+      }
+
+      const montant = req.body.montant;
+      account.Solde += montant;
+      await account.save();
+
+      res.json(account);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "An error occurred while crediting the account." });
+    }
+  },
+  // Fonction pour débiter un montant du compte
+  debiter: async (req, res) => {
+    try {
+      const account = await Account.findById(req.params.id);
+      if (!account) {
+        return res.status(404).json({ error: "Account not found." });
+      }
+
+      const montant = req.body.montant;
+      if (account.Solde >= montant) {
+        account.Solde -= montant;
+        await account.save();
+        res.json(account);
+      } else {
+        res
+          .status(400)
+          .json({ error: "Insufficient balance to perform the debit." });
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "An error occurred while debiting the account." });
+    }
+  },
+  // Fonction pour récupérer le solde du compte
+  getSolde: async (req, res) => {
+    try {
+      const account = await Account.findById(req.params.id);
+      if (!account) {
+        return res.status(404).json({ error: "Account not found." });
+      }
+
+      res.json({ Solde: account.Solde });
+    } catch (error) {
+      res.status(500).json({
+        error: "An error occurred while retrieving the account balance.",
+      });
+    }
+  },
 };
 module.exports = AccountController;
