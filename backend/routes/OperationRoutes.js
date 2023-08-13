@@ -3,10 +3,10 @@ const router = express.Router();
 const OperationController = require("../controllers/OperationControllers");
 
 //Routes
-router.get("/operation", OperationController.getAllOperation);
-router.get("/operation/:id", OperationController.getOperationBytId);
-router.post("/operation", OperationController.createOperation);
-router.put("/operation/:id", OperationController.updateOperation);
-router.delete("/operation/:id", OperationController.deleteOperation);
+router.get("/", OperationController.getAllOperation);
+router.get("/:id", OperationController.getOperationBytId);
+router.post("/", OperationController.createOperation);
+router.put("/:id", OperationController.updateOperation);
+router.delete("/:id", OperationController.deleteOperation);
 
 module.exports = router;
