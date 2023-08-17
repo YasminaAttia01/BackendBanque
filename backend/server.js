@@ -3,9 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const indexRoutes = require("./routes/index");
+const cors = require("cors");
 
 //express App
 const mybank = express();
+mybank.use(cors());
 
 // Middleware pour parser les données du corps des requêtes
 mybank.use(bodyParser.json());
@@ -27,7 +29,7 @@ mongoose.connection.on("error", (err) => {
 mybank.use("/api", indexRoutes);
 
 // Lancer le serveur
-const port = 3000;
+const port = 9000;
 mybank.listen(port, () => {
   console.log(`Serveur en écoute sur le port ${port}`);
 });
