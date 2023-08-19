@@ -8,6 +8,7 @@ const userSchema = new Schema(
     Role: {
       type: String,
       required: true,
+      enum:["agent","client"]
     },
     Nom: {
       type: String,
@@ -44,6 +45,7 @@ const userSchema = new Schema(
 
 // Define the static signup method
 userSchema.statics.signup = async function (
+  Role,
   Nom,
   Prenom,
   DateNaiss,
@@ -88,6 +90,7 @@ userSchema.statics.signup = async function (
     PhoneNumber,
     email,
     password: hash,
+    Role
   });
   return user;
 };
